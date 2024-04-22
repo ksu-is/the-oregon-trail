@@ -12,7 +12,7 @@ def setup():
         # amount spent on animals
         "animals": 0,
         # amount spent on ammunition
-        "ammunition": 0,
+        "spell scrolls": 0,
         # amount spent on clothing
         "clothing": 0,
         # flag for insufficient clothing in cold weather
