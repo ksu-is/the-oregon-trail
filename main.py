@@ -186,7 +186,7 @@ def blizzard(game_variables):
             dying("no_supplies")
 
         # slow down the loop, so it is readable for the user.
-        time.sleep(5)
+        time.sleep(6)
     return game_variables
 
 
