@@ -11,8 +11,8 @@ def setup():
         # Identification of variables in the program
         # amount spent on animals
         "animals": 0,
-        # amount spent on ammunition
-        "ammunition": 0,
+        # amount spent on spell scrolls
+        "spell scrolls": 0,
         # amount spent on clothing
         "clothing": 0,
         # flag for insufficient clothing in cold weather
@@ -43,8 +43,8 @@ def setup():
         "South_Pass_Mileage_Flag": False,
         # flag for illness
         "illness": False,
-        # cash in your wallet
-        "cash": 700,
+        # coins in your wallet
+        "coins": 700,
         # flag for fort option
         "fort_flag": False
     }
@@ -52,7 +52,7 @@ def setup():
 
 
 def shooting():
-    print("\nYou pull your gun, aim, and pull the trigger")
+    print("\nYou pull your staff, aim, and cast the attack spell")
     start_time = time.time()
     seconds = 15
     while True:
@@ -139,7 +139,7 @@ def mountains(game_variables):
             elif random.randint(1, 100) > 10:
                 print("\nWagon Damaged! - Lose time and supplies.\nThe going gets slow.")
                 game_variables["supplies"] = game_variables["supplies"] - 5
-                game_variables["ammunition"] = game_variables["ammunition"] - 200
+                game_variables["spell scrolls"] = game_variables["spell scrolls"] - 200
                 game_variables["clothing"] = game_variables["clothing"] - (random.randint(1, 40))
                 game_variables["mileage"] = game_variables["mileage"] - 30 - (random.randint(1, 40))
             elif random.randint(1, 100) > 10:
@@ -156,7 +156,7 @@ def blizzard(game_variables):
         game_variables["blizzard"] = True
         game_variables["food"] = game_variables["food"] - 25
         game_variables["supplies"] = game_variables["supplies"] - 10
-        game_variables["ammunition"] = game_variables["ammunition"] - 300
+        game_variables["spell scrolls"] = game_variables["spell scrolls"] - 300
         game_variables["mileage"] = game_variables["mileage"] - 30 - (random.randint(1, 40))
 
         # This is where  we will check to see if you have enough clothing to survive the blizzard.
@@ -213,10 +213,10 @@ def dying(reason):
 
     print("That will be $4.50 for the telegraph charge.\n")
     print("We thank you for this information and we are sorry you")
-    print("didn't make it to the great territory of Oregon")
+    print("didn't make it to the great territory of Moonhaven")
     print("Better luck next time.\n\n")
     print("\tSincerely,")
-    print("\tThe Oregon City Chamber of Commerce")
+    print("\tThe Moonhaven Chamber of Commerce")
 
 
 def buying_routine(object_name, min_amount, max_amount, wallet):
@@ -242,23 +242,23 @@ def buying_routine(object_name, min_amount, max_amount, wallet):
 
 def initial_purchases(game_variables):
     # Oxen Team
-    oxen = buying_routine("oxen team", 200, 300, game_variables["cash"])
-    game_variables["cash"] = game_variables["cash"] - oxen
+    oxen = buying_routine("oxen team", 200, 300, game_variables["coins"])
+    game_variables["coins"] = game_variables["coins"] - oxen
     # food
-    food = buying_routine("food", 1, 99999, game_variables["cash"])
-    game_variables["cash"] = game_variables["cash"] - food
+    food = buying_routine("food", 1, 99999, game_variables["coins"])
+    game_variables["coins"] = game_variables["coins"] - food
 
     # ammo
-    ammo = buying_routine("ammunition", 1, 99999, game_variables["cash"])
-    game_variables["cash"] = game_variables["cash"] - ammo
+    ammo = buying_routine("spell scrolls", 1, 99999, game_variables["coins"])
+    game_variables["coins"] = game_variables["coins"] - ammo
 
     # clothing
-    clothing = buying_routine("clothing", 1, 99999, game_variables["cash"])
-    game_variables["cash"] = game_variables["cash"] - clothing
+    clothing = buying_routine("clothing", 1, 99999, game_variables["coins"])
+    game_variables["coins"] = game_variables["coins"] - clothing
 
     # miscellaneous supplies
-    misc = buying_routine("miscellaneous supplies", 1, 99999, game_variables["cash"])
-    game_variables["cash"] = game_variables["cash"] - misc
+    misc = buying_routine("miscellaneous supplies", 1, 99999, game_variables["coins"])
+    game_variables["coins"] = game_variables["coins"] - misc
 
     total = 700 - oxen - clothing - ammo - food - misc
     if total < 0:
@@ -268,9 +268,9 @@ def initial_purchases(game_variables):
     ammo = ammo * 50
     print("After all your purchases. You now have %d dollars left." % total)
 
-    game_variables["cash"] = total
+    game_variables["coins"] = total
     game_variables["animals"] = oxen
-    game_variables["ammunition"] = ammo
+    game_variables["spel scrolls"] = ammo
     game_variables["clothing"] = clothing
     game_variables["food"] = food
     game_variables["supplies"] = misc
@@ -279,18 +279,18 @@ def initial_purchases(game_variables):
 
 
 def instructions():
-    print("This program simulates a trip over the oregon trail from Independence,")
-    print("Missouri to Oregon City, Oregon in 1847 your family of five will cover")
-    print("the 2040 mile Oregon Trail in 5-6 months --- if you make it alive.\n")
-    print("You had saved $900 to spend for the trip, and you've just paid $200 for a wagon.")
+    print("Welcome traveler! This program simulates a journey across the fantasitcal lands of Dorne.")
+    print("You are a wizard travelling from Gondor to Moonhaven to attend the annual wizard's meeting.")
+    print("The 2040 mile journey should be completed in 5-6 months --- if you make it alive.\n")
+    print("You had saved 900 coins to spend for the trip, and you've just paid 200 for a wagon.")
     print("You will need to spend the rest of your money on the following items:\n")
-    print("     Oxen - you can spend $200-$300 on your team")
+    print("     Oxen - you can spend 200-300 coins on your team")    
     print("            the more you spend, the faster you'll go")
     print("            because you'll have better animals\n")
     print("     Food - the more you have, the less chance there")
     print("            is of getting sick\n")
-    print("     Ammunition - $1 buys a belt of 50 bullets")
-    print("            you will need bullets for attacks by animals")
+    print("     Spell Scrolls - 1 coin buys a box of 50 scrolls")
+    print("            you will need scrolls to cast attack spells against animals")
     print("            and bandits, and for hunting food\n")
     print("     Clothing - this is especially important for the cold")
     print("            weather you will encounter when crossing")
@@ -298,17 +298,17 @@ def instructions():
     print("     Miscellaneous supplies - this includes medicine and")
     print("            other things you will need for sickness and")
     print("            emergency repairs\n\n")
-    print("You can spend all your money before you start your trip -")
-    print("or you can save some of your cash to spend at forts along")
+    print("You can spend all your money before you start your journey -")
+    print("or you can save some of your coins to spend at forts along")
     print("the way when you run low. However, items cost more at")
     print("the forts. You can also go hunting along the way to get")
     print("more food.\n")
-    print("Whenever you have to use your trusty rifle along the way,")
+    print("Whenever you have to use your trusty magic staff along the way,")
     print("you will be told to type in a word (one that sounds like a ")
     print("gun shot). the faster you type in that word and hit the")
-    print("'return' key, the better luck you'll have with your gun.\n")
+    print("'return' key, the better luck you'll have with your shot.\n")
     print("at each turn, all items are shown in dollar amounts")
-    print("except bullets")
+    print("except scrolls")    
     print("when asked to enter money amounts, don't use a ""$"".\n")
     print("good luck!!!")
 
@@ -317,25 +317,25 @@ def user_stats(game_variables):
     # If any of the variables are below zero, we will set them to zero here.
     if game_variables["food"] < 0:
         game_variables["food"] = 0
-    if game_variables["ammunition"] < 0:
-        game_variables["ammunition"] = 0
+    if game_variables["spell scrolls"] < 0:
+        game_variables["spell scrolls"] = 0
     if game_variables["clothing"] < 0:
         game_variables["clothing"] = 0
     if game_variables["supplies"] < 0:
         game_variables["supplies"] = 0
-    if game_variables["cash"] < 0:
-        game_variables["cash"] = 0
+    if game_variables["coins"] < 0:
+        game_variables["coins"] = 0
 
     print("Food:            % d" % game_variables["food"])
-    print("Bullets:         % d" % game_variables["ammunition"])
+    print("scrolls:         % d" % game_variables["spell scrolls"])
     print("Clothing:        % d" % game_variables["clothing"])
     print("Misc. Supplies:  % d" % game_variables["supplies"])
-    print("Cash:            % d" % game_variables["cash"])
+    print("coins:            % d" % game_variables["coins"])
     return
 
 
 def final_turn(game_variables):
-    print("\nYou finally arrived at Oregon City\nafter 2040 long miles - Hooray!!\nA Real Pioneer!")
+    print("\nYou finally arrived at Moonhaven\nafter 2040 long miles - Hooray!!\nA Real Pioneer!")
     time_calculation = (2040 - game_variables["turn_mileage"]) / (
                 game_variables["mileage"] - game_variables["turn_mileage"])
     game_variables["food"] = game_variables["food"] + (1 - time_calculation) * (8 + 5 * game_variables["eating_choice"])
@@ -381,8 +381,8 @@ def game_loop(game_variables):
     if game_variables["food"] < 0:
         game_variables["food"] = 0
 
-    if game_variables["ammunition"] < 0:
-        game_variables["ammunition"] = 0
+    if game_variables["spell scrolls"] < 0:
+        game_variables["spell scrolls"] = 0
 
     if game_variables["clothing"] < 0:
         game_variables["clothing"] = 0
@@ -394,19 +394,19 @@ def game_loop(game_variables):
         print("\n\nYou'd better do some hunting or buy food and soon!!!!")
 
     game_variables["food"] = int(game_variables["food"])
-    game_variables["ammunition"] = int(game_variables["ammunition"])
+    game_variables["spell scrolls"] = int(game_variables["spell scrolls"])
     game_variables["clothing"] = int(game_variables["clothing"])
     game_variables["supplies"] = int(game_variables["supplies"])
-    game_variables["cash"] = int(game_variables["cash"])
+    game_variables["coins"] = int(game_variables["coins"])
     game_variables["mileage"] = int(game_variables["mileage"])
 
     game_variables["turn_mileage"] = game_variables["mileage"]
 
     if game_variables["illness"] or game_variables["injury"]:
-        game_variables["cash"] = game_variables["cash"] - 20
+        game_variables["coins"] = game_variables["coins"] - 20
         game_variables["illness"] = False
         game_variables["injury"] = False
-        if game_variables["cash"] < 0:
+        if game_variables["coins"] < 0:
             dying("no_doctor")
         print("Doctor's Bill is $20.")
 
@@ -425,8 +425,8 @@ def game_loop(game_variables):
             if input_x < 1 or input_x > 2:
                 input_x = 3
                 break
-            elif input_x == 2 and game_variables["ammunition"] < 39:
-                print("TOUGH -- You need more bullets to go hunting.")
+            elif input_x == 2 and game_variables["spell scrolls"] < 39:
+                print("TOUGH -- You need more scrolls to go hunting.")
             else:
                 game_variables["fort_flag"] = True
                 input_x = input_x + 1
@@ -440,8 +440,8 @@ def game_loop(game_variables):
             if input_x < 1 or input_x > 3:
                 input_x = 3
                 break
-            elif input_x == 2 and game_variables["ammunition"] < 39:
-                print("TOUGH -- You need more bullets to go hunting.")
+            elif input_x == 2 and game_variables["spellscrolls"] < 39:
+                print("TOUGH -- You need more scrolls to go hunting.")
             else:
                 break
 
@@ -459,8 +459,8 @@ def game_loop(game_variables):
             print("Sorry, I didn't understand that.")
         if (game_variables["food"] - (8 - 5 * input_x)) < game_variables["food"]:
             print("You can't eat that well.")
-        elif input_x == 2 and game_variables["ammunition"] < 39:
-            print("TOUGH -- You need more bullets to go hunting.")
+        elif input_x == 2 and game_variables["spell scrolls"] < 39:
+            print("TOUGH -- You need more scrolls to go hunting.")
         else:
             break
     game_variables["food"] = game_variables["food"] - (8 + 5 * input_x)
@@ -475,23 +475,23 @@ def game_loop(game_variables):
 def fort(game_variables):
     print("Enter what you wish to spend on the following:")
     # food
-    food = buying_routine("food", 0, 9999, game_variables["cash"])
-    game_variables["cash"] = game_variables["cash"] - food
+    food = buying_routine("food", 0, 9999, game_variables["coins"])
+    game_variables["coins"] = game_variables["coins"] - food
     game_variables["food"] = game_variables["food"] + int(.66 * food)
 
     # ammo
-    ammo = buying_routine("ammo", 0, 9999, game_variables["cash"])
-    game_variables["cash"] = game_variables["cash"] - ammo
-    game_variables["ammunition"] = game_variables["ammunition"] + int(.66 * ammo) * 50
+    ammo = buying_routine("ammo", 0, 9999, game_variables["coins"])
+    game_variables["coins"] = game_variables["coins"] - ammo
+    game_variables["spell scrolls"] = game_variables["spell scrolls"] + int(.66 * ammo) * 50
 
     # clothing
-    clothing = buying_routine("clothing", 0, 9999, game_variables["cash"])
-    game_variables["cash"] = game_variables["cash"] - clothing
+    clothing = buying_routine("clothing", 0, 9999, game_variables["coins"])
+    game_variables["coins"] = game_variables["coins"] - clothing
     game_variables["clothing"] = game_variables["clothing"] + int(.66 * ammo) * 50
 
     # miscellaneous supplies
-    misc = buying_routine("clothing", 0, 9999, game_variables["cash"])
-    game_variables["cash"] = game_variables["cash"] - misc
+    misc = buying_routine("clothing", 0, 9999, game_variables["coins"])
+    game_variables["coins"] = game_variables["coins"] - misc
     game_variables["supplies"] = game_variables["supplies"] + int(.66 * misc)
 
     game_variables["mileage"] = game_variables["mileage"] - 45
@@ -500,10 +500,10 @@ def fort(game_variables):
 
 
 def hunting(game_variables):
-    # let's check to see if you have enough bullets to go hunting. You need 39 or more.
-    if game_variables["ammunition"] > 39:
+    # let's check to see if you have enough scrolls to go hunting. You need 39 or more.
+    if game_variables["spell scrolls"] > 39:
         my_shooting = shooting()
-        game_variables["ammunition"] = game_variables["ammunition"] - (random.randint(1, 10) * 3)
+        game_variables["spell scrolls"] = game_variables["spell scrolls"] - (random.randint(1, 10) * 3)
 
         if my_shooting > 4:
             print("You Missed -- and your dinner got away..")
@@ -514,7 +514,7 @@ def hunting(game_variables):
             print("Nice Shot! Right on target - Good Eatin' Tonight")
             game_variables["food"] = game_variables["food"] + 48 - (my_shooting * 2)
     else:
-        print("You need more bullets to go hunting.")
+        print("You need more scrolls to go hunting.")
 
     game_variables["mileage"] = game_variables["mileage"] - 45
     if game_variables["food"] < 14:
@@ -554,16 +554,16 @@ def do_events(game_variables):
         elif new_event == 7:
             print("Heavy rains - time and supplies lost")
             game_variables["food"] = game_variables["food"] - 10
-            game_variables["ammunition"] = game_variables["ammunition"] - 500
+            game_variables["spell scrolls"] = game_variables["spell scrolls"] - 500
             game_variables["supplies"] = game_variables["supplies"] - 15
             game_variables["mileage"] = game_variables["mileage"] - random.randint(1, 10) - 5
         elif new_event == 8:
             print("Bandits Attack!")
             my_shooting = shooting()
-            game_variables["ammunition"] = game_variables["ammunition"] - (my_shooting * 20)
-            if game_variables["ammunition"] < 1:
-                print("You ran out of bullets - They get lots of cash")
-                game_variables["cash"] = int(game_variables["cash"] / 3)
+            game_variables["spell scrolls"] = game_variables["spell scrolls"] - (my_shooting * 20)
+            if game_variables["spell scrolls"] < 1:
+                print("You ran out of scrolls - They get lots of coins")
+                game_variables["coins"] = int(game_variables["coins"] / 3)
                 print("You got shot in the leg and they took one of your oxen.")
                 game_variables["injury"] = True
                 print("Better have a doc look at your wound.")
@@ -574,7 +574,7 @@ def do_events(game_variables):
         elif new_event == 9:
             print("There was a fire in your wagon - Food and supplies damaged!")
             game_variables["food"] = game_variables["food"] - 40
-            game_variables["ammunition"] = game_variables["ammunition"] - 400
+            game_variables["spell scrolls"] = game_variables["spell scrolls"] - 400
             game_variables["mileage"] = game_variables["mileage"] - 15
             game_variables["supplies"] = game_variables["supplies"] - random.randint(1, 8) - 3
         elif new_event == 10:
@@ -582,7 +582,7 @@ def do_events(game_variables):
             game_variables["mileage"] = game_variables["mileage"] - 10 - random.randint(1, 5)
         elif new_event == 11:
             print("You killed a poisonous snake after it bit you")
-            game_variables["ammunition"] = game_variables["ammunition"] - 10
+            game_variables["spell scrolls"] = game_variables["spell scrolls"] - 10
             game_variables["supplies"] = game_variables["supplies"] - 5
             if game_variables["supplies"] < 1:
                 print("You die of snakebite since you have no medicine")
@@ -594,8 +594,8 @@ def do_events(game_variables):
             game_variables["mileage"] = game_variables["mileage"] - 20 - random.randint(1, 20)
         elif new_event == 13:
             print("Wild animals attack!")
-            if game_variables["ammunition"] < 40:
-                print("You were too low on bullets - The wolves overpowered you")
+            if game_variables["spell scrolls"] < 40:
+                print("You were too low on scrolls - The wolves overpowered you")
                 game_variables["injury"] = True
             else:
                 my_shooting = shooting()
@@ -605,7 +605,7 @@ def do_events(game_variables):
                     print("Nice Shootin' Partner - They didn't get much.")
                 game_variables["food"] = game_variables["food"] - (my_shooting * 8)
                 game_variables["clothing"] = game_variables["clothing"] - (my_shooting * 4)
-                game_variables["ammunition"] = game_variables["ammunition"] - (my_shooting * 20)
+                game_variables["spell scrolls"] = game_variables["spell scrolls"] - (my_shooting * 20)
         elif new_event == 14:
             print("Cold Weather!!")
             if game_variables["clothing"] > random.randint(1, 4) + 22:
@@ -615,11 +615,11 @@ def do_events(game_variables):
                 game_variables = illness(game_variables)
         elif new_event == 15:
             print("Hail Storm - Supplies Damaged")
-            game_variables["ammunition"] = game_variables["ammunition"] - 200
+            game_variables["spell scrolls"] = game_variables["spell scrolls"] - 200
             game_variables["supplies"] = game_variables["supplies"] - 4 - random.randint(1, 3)
             game_variables["mileage"] = game_variables["mileage"] - 5 - random.randint(1, 10)
         else:
-            print("Helpful indians show you where to find more food.")
+            print("Helpful locals show you where to find more food.")
             game_variables["food"] = game_variables["food"] + 14
     return game_variables
 
@@ -650,12 +650,12 @@ def riders(game_variables):
             if my_tactic == 1:
                 # Run
                 game_variables["mileage"] = game_variables["mileage"] + 20
-                game_variables["ammunition"] = game_variables["ammunition"] - 150
+                game_variables["spell scrolls"] = game_variables["spell scrolls"] - 150
                 game_variables["animals"] = game_variables["animals"] - 40
             elif my_tactic == 2:
                 # attack
                 my_shooting = shooting()
-                game_variables["ammunition"] = game_variables["ammunition"] - (my_shooting * 40) - 80
+                game_variables["spell scrolls"] = game_variables["spell scrolls"] - (my_shooting * 40) - 80
                 if my_shooting == 1:
                     print("Nice Shooting Tex - You drove them off.")
                 elif my_shooting > 4:
@@ -669,12 +669,12 @@ def riders(game_variables):
                     print("They did not attack.")
                     riders_hostile = False
                 else:
-                    game_variables["ammunition"] = game_variables["ammunition"] - 150
+                    game_variables["spell scrolls"] = game_variables["spell scrolls"] - 150
                     game_variables["mileage"] = game_variables["mileage"] - 15
             else:
                 # circle the wagons
                 my_shooting = shooting()
-                game_variables["ammunition"] = game_variables["ammunition"] - (my_shooting * 30) - 80
+                game_variables["spell scrolls"] = game_variables["spell scrolls"] - (my_shooting * 30) - 80
                 game_variables["mileage"] = game_variables["mileage"] - 25
                 if my_shooting == 1:
                     print("Nice Shooting Tex - You drove them off.")
@@ -692,7 +692,7 @@ def riders(game_variables):
             elif my_tactic == 2:
                 # attack
                 game_variables["mileage"] = game_variables["mileage"] - 5
-                game_variables["ammunition"] = game_variables["ammunition"] - 100
+                game_variables["spell scrolls"] = game_variables["spell scrolls"] - 100
             elif my_tactic == 3:
                 # continue
                 game_variables["mileage"] = game_variables["mileage"] - 5
@@ -704,8 +704,8 @@ def riders(game_variables):
 
     if riders_hostile:
         print("The Riders were hostile - Check for loses.")
-        if game_variables["ammunition"] < 1:
-            print("You ran out of bullets and got massacred by the riders!")
+        if game_variables["spell scrolls"] < 1:
+            print("You ran out of scrolls and got massacred by the riders!")
             dying("injury")
     else:
         print("The Riders were friendly, but check for possible losses.")
@@ -726,7 +726,7 @@ def start_game():
     print("\t(4) need more practice,  (5) shaky knees")
     my_shooting = abs(int(builtins.input(
         "Enter one of the above -- the better you claim you are, the\n"
-        "faster you'll have to be with your gun to be successful: ")))
+        "faster you'll have to be with your staff to be successful: ")))
     if my_shooting > 5 or my_shooting < 1:
         my_shooting = 0
     game_variables["shooting_expert_level"] = my_shooting
