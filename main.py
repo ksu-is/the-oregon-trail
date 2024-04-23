@@ -60,7 +60,7 @@ def shooting():
         elapsed_time = current_time - start_time
 
         if elapsed_time > seconds:
-            print("Pop")
+            print("Bang")
             my_score = 5
             break
         if keyboard.is_pressed(" "):
