@@ -539,7 +539,7 @@ def do_events(game_variables):
             game_variables["animals"] = game_variables["animals"] - 20
             game_variables["mileage"] = game_variables["mileage"] - 25
         elif new_event == 3:
-            print("Bad Luck - Your son fell and fracture his ulna\nYou had to stop and use supplies to make a sling.")
+            print("Bad Luck - Your son fell and broke his leg\nYou had to stop and use supplies to make a wooden splint.")
             game_variables["supplies"] = game_variables["supplies"] - 5
             game_variables["mileage"] = game_variables["mileage"] - 5
         elif new_event == 4:
