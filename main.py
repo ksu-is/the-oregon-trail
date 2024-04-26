@@ -335,15 +335,16 @@ def user_stats(game_variables):
 
 def final_turn(game_variables):
     print("\nYou finally arrived at Moonhaven\nafter 2040 long miles - Hooray!!\nA Real Pioneer! Before you enter, you must answer a riddle.")
-    def ask_riddle():
+    riddle = False
+    while riddle is False:
         print("\n What falls, but does not break, and what breaks but does not fall?")
         user_input = input("Your answer: ").strip().lower()
         if user_input == "night falls and day breaks":
             print("Congratulations! That's correct.")
-            return True
+            riddle = True
         else:
             print("Try again, you said you were a wizard right?!")
-            return False 
+            riddle = False
     time_calculation = (2040 - game_variables["turn_mileage"]) / (
                 game_variables["mileage"] - game_variables["turn_mileage"])
     game_variables["food"] = game_variables["food"] + (1 - time_calculation) * (8 + 5 * game_variables["eating_choice"])
