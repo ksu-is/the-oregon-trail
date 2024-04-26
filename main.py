@@ -195,7 +195,7 @@ def dying(reason):
         if reason == "no_food":
             print("You ran out of food and starved to death.")
         elif reason == "no_doctor":
-            print("You can't afford a doctor.")
+            print("You can't afford a apothecary.")
         elif reason == "no_supplies":
             print("You ran out of medical supplies")
         elif reason == "injury":
@@ -209,11 +209,10 @@ def dying(reason):
     print("Would you like a fancy funeral?")
     print("Would you like us to inform your next of kin?")
 
-    print("But your Aunt Sadie in St. Louis is really worried about you.")
 
     print("That will be $4.50 for the telegraph charge.\n")
     print("We thank you for this information and we are sorry you")
-    print("didn't make it to the great territory of Moonhaven")
+    print("didn't make it to the great land of Moonhaven")
     print("Better luck next time.\n\n")
     print("\tSincerely,")
     print("\tThe Moonhaven Chamber of Commerce")
@@ -335,7 +334,16 @@ def user_stats(game_variables):
 
 
 def final_turn(game_variables):
-    print("\nYou finally arrived at Moonhaven\nafter 2040 long miles - Hooray!!\nA Real Pioneer!")
+    print("\nYou finally arrived at Moonhaven\nafter 2040 long miles - Hooray!!\nA Real Pioneer! Before you enter, you must answer a riddle.")
+    def ask_riddle():
+        print("\n What falls, but does not break, and what breaks but does not fall?")
+        user_input = input("Your answer: ").strip().lower()
+        if user_input == "night falls and day breaks":
+            print("Congratulations! That's correct.")
+            return True
+        else:
+            print("Try again, you said you were a wizard right?!")
+            return False 
     time_calculation = (2040 - game_variables["turn_mileage"]) / (
                 game_variables["mileage"] - game_variables["turn_mileage"])
     game_variables["food"] = game_variables["food"] + (1 - time_calculation) * (8 + 5 * game_variables["eating_choice"])
@@ -354,26 +362,26 @@ def final_turn(game_variables):
 
     if game_variables["game_turn"] < 124:
         game_variables["game_turn"] = game_variables["game_turn"] - 93
-        print(the_day + ", July " + str(game_variables["game_turn"]) + ", 1847")
+        print(the_day + ", July " + str(game_variables["game_turn"]))
     elif game_variables["game_turn"] < 155:
         game_variables["game_turn"] = game_variables["game_turn"] - 124
-        print(the_day + ", August " + str(game_variables["game_turn"]) + ", 1847")
+        print(the_day + ", August " + str(game_variables["game_turn"]))
     elif game_variables["game_turn"] < 185:
         game_variables["game_turn"] = game_variables["game_turn"] - 155
-        print(the_day + ", September " + str(game_variables["game_turn"]) + ", 1847")
+        print(the_day + ", September " + str(game_variables["game_turn"]))
     elif game_variables["game_turn"] < 216:
         game_variables["game_turn"] = game_variables["game_turn"] - 185
-        print(the_day + ", October " + str(game_variables["game_turn"]) + ", 1847")
+        print(the_day + ", October " + str(game_variables["game_turn"]))
     elif game_variables["game_turn"] < 246:
         game_variables["game_turn"] = game_variables["game_turn"] - 216
-        print(the_day + ", November " + str(game_variables["game_turn"]) + ", 1847")
+        print(the_day + ", November " + str(game_variables["game_turn"]))
     else:
         game_variables["game_turn"] = game_variables["game_turn"] - 246
-        print(the_day + ", December " + str(game_variables["game_turn"]) + ", 1847")
+        print(the_day + ", December " + str(game_variables["game_turn"]))
 
     user_stats(game_variables)
-    print("\tPresident James K. Polk sends you his\n\theartiest congratulations")
-    print("\tAnd wishes you a prosperous life ahead\n\tat you new home.")
+    print("\tKing Mithrandir sends you his\n\thighest regards")
+    print("\tAnd wishes you a prosperous life")
 
 
 def game_loop(game_variables):
@@ -408,7 +416,7 @@ def game_loop(game_variables):
         game_variables["injury"] = False
         if game_variables["coins"] < 0:
             dying("no_doctor")
-        print("Doctor's Bill is $20.")
+        print("You must pay the apothecary 2 coins.")
 
     if game_variables["South_Pass_Mileage_Flag"]:
         print("Total Mileage:   950")
@@ -538,16 +546,9 @@ def do_events(game_variables):
             print("Ox injures leg - slows you down for the rest of trip")
             game_variables["animals"] = game_variables["animals"] - 20
             game_variables["mileage"] = game_variables["mileage"] - 25
-        elif new_event == 3:
-            print("Bad Luck - Your daughter broke her arm\nYou had to stop and use supplies to make a sling.")
-            game_variables["supplies"] = game_variables["supplies"] - 5
-            game_variables["mileage"] = game_variables["mileage"] - 5
         elif new_event == 4:
             print("Ox wanders off - spend time looking for it.")
             game_variables["mileage"] = game_variables["mileage"] - 17
-        elif new_event == 5:
-            print("Your son gets lost - spend half the day looking for him")
-            game_variables["mileage"] = game_variables["mileage"] - 10
         elif new_event == 6:
             print("Unsafe water - lose time looking for a clean spring.")
             game_variables["mileage"] = game_variables["mileage"] - random.randint(1, 10) - 2
@@ -558,19 +559,19 @@ def do_events(game_variables):
             game_variables["supplies"] = game_variables["supplies"] - 15
             game_variables["mileage"] = game_variables["mileage"] - random.randint(1, 10) - 5
         elif new_event == 8:
-            print("Bandits Attack!")
+            print("Orcs Attack!")
             my_shooting = shooting()
             game_variables["spell scrolls"] = game_variables["spell scrolls"] - (my_shooting * 20)
             if game_variables["spell scrolls"] < 1:
                 print("You ran out of scrolls - They get lots of coins")
                 game_variables["coins"] = int(game_variables["coins"] / 3)
-                print("You got shot in the leg and they took one of your oxen.")
+                print("An orc shot you in the leg with an arrow and they took one of your oxen.")
                 game_variables["injury"] = True
-                print("Better have a doc look at your wound.")
+                print("Better have an apothecary look at your wound.")
                 game_variables["supplies"] = game_variables["supplies"] - 5
                 game_variables["animals"] = game_variables["animals"] - 20
             else:
-                print("Quickest draw outside of Dodge City!!\nYou got 'em!")
+                print("Great Concentration Wizard!!\nYou got 'em!")
         elif new_event == 9:
             print("There was a fire in your wagon - Food and supplies damaged!")
             game_variables["food"] = game_variables["food"] - 40
@@ -600,9 +601,9 @@ def do_events(game_variables):
             else:
                 my_shooting = shooting()
                 if my_shooting > 2:
-                    print("Slow on the draw - They got at your food and clothes.")
+                    print("You didn't cast your spell fast enough - They got at your food and clothes.")
                 else:
-                    print("Nice Shootin' Partner - They didn't get much.")
+                    print("Great aim! - They didn't get much.")
                 game_variables["food"] = game_variables["food"] - (my_shooting * 8)
                 game_variables["clothing"] = game_variables["clothing"] - (my_shooting * 4)
                 game_variables["spell scrolls"] = game_variables["spell scrolls"] - (my_shooting * 20)
@@ -631,10 +632,10 @@ def riders(game_variables):
         return
     else:
         if random.randint(1, 10) < 3:
-            print("Riders ahead. They don't look hostile.")
+            print("Elves ahead. They don't look hostile.")
             riders_hostile = False
         else:
-            print("Riders ahead. They look hostile.")
+            print("Elves ahead. They look hostile.")
             riders_hostile = True
 
         while True:
@@ -657,12 +658,12 @@ def riders(game_variables):
                 my_shooting = shooting()
                 game_variables["spell scrolls"] = game_variables["spell scrolls"] - (my_shooting * 40) - 80
                 if my_shooting == 1:
-                    print("Nice Shooting Tex - You drove them off.")
+                    print("Nice Shooting, - You drove them off.")
                 elif my_shooting > 4:
-                    print("Lousy Shot - You got knifed\nYou have to see Ol' Doc Blanchard.")
+                    print("Lousy Shot - You got knifed\nYou have to see a healer.")
                     game_variables["injury"] = True
                 else:
-                    print("Kinda slow with your Colt .45")
+                    print("Kinda slow with your staff")
             elif my_tactic == 3:
                 # continue
                 if random.randint(1, 10) > 7:
@@ -677,12 +678,12 @@ def riders(game_variables):
                 game_variables["spell scrolls"] = game_variables["spell scrolls"] - (my_shooting * 30) - 80
                 game_variables["mileage"] = game_variables["mileage"] - 25
                 if my_shooting == 1:
-                    print("Nice Shooting Tex - You drove them off.")
+                    print("Nice Shooting - You drove them off.")
                 elif my_shooting > 4:
-                    print("Lousy Shot - You got knifed\nYou have to see Ol' Doc Blanchard.")
+                    print("Lousy Shot - You got knifed\nYou have to see a healer.")
                     game_variables["injury"] = True
                 else:
-                    print("Kinda slow with your Colt .45")
+                    print("Kinda slow with your staff")
         else:
             # riders not hostile.
             if my_tactic == 1:
@@ -703,12 +704,12 @@ def riders(game_variables):
                 print("They did not attack.")
 
     if riders_hostile:
-        print("The Riders were hostile - Check for loses.")
+        print("The Elves were hostile - Check for loses.")
         if game_variables["spell scrolls"] < 1:
-            print("You ran out of scrolls and got massacred by the riders!")
+            print("You ran out of scrolls and got massacred by the Elves!")
             dying("injury")
     else:
-        print("The Riders were friendly, but check for possible losses.")
+        print("The Elves were friendly, but check for possible losses.")
     return game_variables
 
 
@@ -721,7 +722,7 @@ def start_game():
                        "August 2", "August 16", "August 31", "September 13", "September 27", "October 11", "October 25",
                        "November 8", "November 22", "December 6", "December 20"]
 
-    print("\nHow good a shot are you with your rifle?")
+    print("\nHow good a shot are you with your staff?")
     print("\t(1) ace marksman,  (2) good shot,  (3) fair to middlin'")
     print("\t(4) need more practice,  (5) shaky knees")
     my_shooting = abs(int(builtins.input(
@@ -740,7 +741,7 @@ def start_game():
                 if game_variables["mileage"] > 2040:
                     final_turn(game_variables)
                     break
-                print("\nMonday, " + game_week_dates[game_variables["game_turn"]] + ", 1847")
+                print("\nMonday, " + game_week_dates[game_variables["game_turn"]] )
                 game_loop(game_variables)
                 do_events(game_variables)
                 riders(game_variables)
@@ -750,8 +751,7 @@ def start_game():
                     game_variables = mountains(game_variables)
 
             else:
-                print("\nYou have been on the trail too long\nYour family dies in the first blizzard of winter.")
-                dying("")
+                break
 
         except TypeError:
             print(game_variables)
