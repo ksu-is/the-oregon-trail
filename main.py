@@ -448,7 +448,7 @@ def game_loop(game_variables):
             if input_x < 1 or input_x > 3:
                 input_x = 3
                 break
-            elif input_x == 2 and game_variables["spellscrolls"] < 39:
+            elif input_x == 2 and game_variables["spell scrolls"] < 39:
                 print("TOUGH -- You need more scrolls to go hunting.")
             else:
                 break
@@ -465,8 +465,6 @@ def game_loop(game_variables):
             input_x = int(builtins.input("Do you want to eat (1) Poorly, (2) Moderately, or (3) Well: "))
         except ValueError:
             print("Sorry, I didn't understand that.")
-        if (game_variables["food"] - (8 - 5 * input_x)) < game_variables["food"]:
-            print("You can't eat that well.")
         elif input_x == 2 and game_variables["spell scrolls"] < 39:
             print("TOUGH -- You need more scrolls to go hunting.")
         else:
