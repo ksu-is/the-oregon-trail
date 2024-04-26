@@ -269,7 +269,7 @@ def initial_purchases(game_variables):
 
     game_variables["coins"] = total
     game_variables["animals"] = oxen
-    game_variables["spel scrolls"] = ammo
+    game_variables["spell scrolls"] = ammo
     game_variables["clothing"] = clothing
     game_variables["food"] = food
     game_variables["supplies"] = misc
@@ -488,7 +488,7 @@ def fort(game_variables):
     game_variables["food"] = game_variables["food"] + int(.66 * food)
 
     # ammo
-    ammo = buying_routine("ammo", 0, 9999, game_variables["coins"])
+    ammo = buying_routine("spell scrolls", 0, 9999, game_variables["coins"])
     game_variables["coins"] = game_variables["coins"] - ammo
     game_variables["spell scrolls"] = game_variables["spell scrolls"] + int(.66 * ammo) * 50
 
